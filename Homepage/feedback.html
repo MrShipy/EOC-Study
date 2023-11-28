@@ -1,0 +1,40 @@
+
+<!--Links-->
+<link rel="stylesheet" href="style.css">
+<script src="soundeffects.js"></script>
+<link rel="icon" type="image/x-icon" href="Images/Favcon.ico">
+<!--Homepage-->
+<title>EOC Study</title>
+<div id="nav">
+	<button onclick="window.location.href='index.html'" class="navbutton"><b>Home</b></button>
+	<button class="navbutton"><b>Proxy (Coming Soon)</b></button>
+	<button onclick="window.location.href='games.html'" class="navbutton"><b>Games</b></button>
+	<button onclick="window.open('discord.gg/pnCcstvjpd','popup','width=600,height=600')" class="navbutton"><b>Discord</b></button>
+</div>
+<h1 class="title">Input Feedback Here</h1>
+<div id="feedback">
+  <input size="100" type="text">
+  <button onclick="sendMessage()">Submit Feedback</button>
+</div>
+
+<style>
+  #feedback{
+    height: 100px;
+  }
+</style>
+
+<script>
+  function sendMessage() {
+    const request = new XMLHttpRequest();
+    request.open("POST", "https://discord.com/api/webhooks/1139014889944391702/AYxzlsnGErnAvy5eoHjf-YQPb3pnMm5Qfm1GSUJL-BKokEnOJGSt0Z4rt6SVZWXoHBDN");
+
+    request.setRequestHeader('Content-type', 'application/json');
+    const params = {
+      username: "Feedback Bot",
+      avatar_url: "",
+      content: document.getElementById("FeedbackBox")
+    }
+
+    request.send(JSON.stringify(params));
+  }
+</script>

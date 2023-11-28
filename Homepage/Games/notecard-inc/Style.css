@@ -1,0 +1,10 @@
+.savediv {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    margin-left: -104.5px
+}
+
+.save {
+    height: 1000px;
+}

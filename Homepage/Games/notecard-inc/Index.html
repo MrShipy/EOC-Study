@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<script type="text/javascript" src="Java.js"></script>
+<link rel="stylesheet" href="Style.css">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Notecard Inc</title>
+</head>
+<body>
+
+    <h1 id="number">Start or Load save</h1>
+    <button onclick="createnote()">Manufacture Notecard</button>
+
+    <h2 id="moneytitle">Money: 0</h2>
+    <h5 id="amount">Pack: 52 cards (+$4)</h5>
+    <button onclick="sellnotecard(1)">Sell a pack</button>
+    <button onclick="sellnotecard(10)">Sell 10 packs</button>
+    <button onclick="sellnotecard(100)">Sell 100 pack</button>
+    <br />
+    <br />
+    <br />
+    <br />
+    <t id="machinestitle"><b>Bigger Machines: $8 (0)</b></t>
+    <br />
+    <br />
+    <button onclick="upgrademachines()" id="biggermachines">Upgrade Machines</button>
+    <br />
+    <br />
+    <br />
+    <br />
+    <t id="automachinestitle"><b>Auto Machines: 800 (0)</b></t>
+    <br />
+    <br />
+    <button onclick="addautomachine()" id="automachine">Upgrade Auto Machine</button>
+    <br />
+    <br />
+    <br />
+    <br />
+    <t id="marketsharetitle"><b>Market Share: $1000 (1)</b></t>
+    <br />
+    <br />
+    <button onclick="buymarketshare()" id="marketshare">Buy Market Share</button>
+    <br />
+    <br />
+    <h2 id="papertitle">Paper: 100 sheets</h2>
+    <h5 id="paper">1 Sheet of paper: ($0.8)</h5>
+    <button onclick="buypaper(10)">Buy 10 sheets of paper</button>
+    <button onclick="buypaper(100)">Buy 100 sheets of paper</button>
+    <button onclick="buypaper(1000)">Buy 1000 sheets of paper</button>
+
+    <div class="savediv">
+        <div>
+            <div>
+                <button onclick="save()" class="savebutton">
+                    Save
+                </button>
+                <button onclick="load()" class="savebutton">
+                    Load
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
