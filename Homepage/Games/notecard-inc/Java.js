@@ -1,10 +1,10 @@
 //var
-var notecards = 0;
+var notecards = 10000;
 var multiplier = 1;
 var biggermachines = 1;
-var money = 0;
+var money = 99999;
 var marketshare = 1;
-var savevalue = '10';
+var savevalue = '11';
 var automachines = 0;
 var paper = 100;
 var automachineactivated = 0;
@@ -23,12 +23,21 @@ machines_equation = ((5 * biggermachines) * 1.6);
 automachine_equation = ((automachines + 1) * 30);
 
 
+function on() {
+    document.getElementById("overlay").style.display = "block";
+  }
+  
+  function off() {
+    document.getElementById("overlay").style.display = "none";
+  }
+
+
 function createnote() {
     if (paper >= 0) {
         notecards = notecards + multiplier;
         document.getElementById("number").innerHTML = "Notecards: " + notecards;
         paper = paper - 0.10;
-        document.getElementById("papertitle").innerHTML = "Paper: " + math.round(paper) + " sheets";
+        document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
     }
 }
 
@@ -71,36 +80,44 @@ function buypaper(amount) {
         document.getElementById("moneytitle").innerHTML = "Money: $" + money;
     }
 }
+let timeout;
+let timeout2;
+const automachinesdelay_equation = (4000 - (automachines * 600)) + 600
 function AutoMachine() {
-    var i = 1;
-    if (automachineactivated == 1) {
-        setTimeout(function () {
-            createnote()
-            i++;
-            if (i < 1000000) {
-                AutoMachine();
-            }
-        }, 2000 / automachines)
-    }
+    //alert((4000 - (2 * 300)) + 600);
+    console.log((4000 - (automachines * 600)) + 600);
+    createnote();
+    timeout = setTimeout(AutoMachine2, (4000 - (automachines * 600)) + 600);
 }
-
+function AutoMachine2() {
+    console.log((4000 - (automachines * 600)) + 600);
+   createnote();
+    timeout2 = setTimeout(AutoMachine, (4000 - (automachines * 600)) + 600);
+}
+                  //  start the loop
 function addautomachine() {
     if (money >= automachine_equation) {
+       // alert("enough money");
         if (automachineactivated == 0) {
+           // alert("value check");
             money = money - automachine_equation;
             automachines = automachines + 1
             automachine_equation = ((automachines + 1) * 30);
             automachineactivated = 1;
             document.getElementById("automachinestitle").innerHTML = "Auto Machines: $" + automachine_equation + " (" + automachines + ")";
             document.getElementById("moneytitle").innerHTML = "Money: " + money;
+           // alert("checkpoint1");
             if (automachineactivated == 1) {
+               // alert("checkpoint2");
                 if (activated == false) {
+                    alert("Success! Automachines activated.");
                     activated = true;
                     AutoMachine();
                 }
             }
         } else {
             if (money >= automachine_equation) {
+                //alert("checkpoint1");
                 money = money - automachine_equation;
                 automachines = automachines + 1
                 automachine_equation = ((automachines + 1) * 100);
