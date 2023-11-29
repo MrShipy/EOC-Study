@@ -1,5 +1,5 @@
 //var
-var notecards = 0;
+var notecards = 999999999999999;
 var multiplier = 1;
 var biggermachines = 1;
 var money = 0;
@@ -28,7 +28,7 @@ function createnote() {
         notecards = notecards + multiplier;
         document.getElementById("number").innerHTML = "Notecards: " + notecards;
         paper = paper - 0.10;
-        document.getElementById("papertitle").innerHTML = "Paper: " + math.round(paper) + " sheets";
+        document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
     }
 }
 
