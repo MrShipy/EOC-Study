@@ -75,7 +75,7 @@ function AutoMachine() {
     var i = 1;
     if (automachineactivated == 1) {
         setTimeout(function () {
-            createnote()
+            createnote();
             i++;
             if (i < 1000000) {
                 AutoMachine();
