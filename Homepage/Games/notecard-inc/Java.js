@@ -23,15 +23,6 @@ machines_equation = ((5 * biggermachines) * 1.6);
 automachine_equation = ((automachines + 1) * 30);
 
 
-function on() {
-    document.getElementById("overlay").style.display = "block";
-  }
-  
-  function off() {
-    document.getElementById("overlay").style.display = "none";
-  }
-
-
 function createnote() {
     if (paper >= 0) {
         notecards = notecards + multiplier;
