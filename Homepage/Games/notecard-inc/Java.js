@@ -1,5 +1,5 @@
 //var
-var notecards = 999999999999999;
+var notecards = 0;
 var multiplier = 1;
 var biggermachines = 1;
 var money = 0;
@@ -21,7 +21,6 @@ papersave = 'papersave' + savevalue;
 //equations
 machines_equation = ((5 * biggermachines) * 1.6);
 automachine_equation = ((automachines + 1) * 30);
-
 
 function createnote() {
     if (paper >= 0) {
@@ -67,19 +66,15 @@ function buypaper(amount) {
     if (money >= (amount * .8)) {
         money = money - (amount * .8);
         paper = paper + amount;
-        document.getElementById("papertitle").innerHTML = "Paper: " + math.round(paper) + " sheets";
+        document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
         document.getElementById("moneytitle").innerHTML = "Money: $" + money;
     }
 }
 function AutoMachine() {
-    var i = 1;
     if (automachineactivated == 1) {
         setTimeout(function () {
             createnote();
-            i++;
-            if (i < 1000000) {
-                AutoMachine();
-            }
+            AutoMachine();
         }, 2000 / automachines)
     }
 }
@@ -163,7 +158,7 @@ function load() {
         document.getElementById("marketsharetitle").innerHTML = "Market Share: $" + (marketshare * 100) + " (" + marketshare + ")";
         document.getElementById("amount").innerHTML = "Pack: 52 cards (+$" + (2 * (marketshare * 2)) + ")";
         document.getElementById("paper").innerHTML = "1 Sheet of paper: ($" + (1 * .8) + ")";
-        document.getElementById("papertitle").innerHTML = "Paper: " + math.round(paper) + " sheets";
+        document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
 
         if (multiplier == 0) {
             multiplier = 1;
@@ -175,10 +170,7 @@ function load() {
             marketshare = 1;
         }
         if (automachineactivated == 1) {
-            if (activated == false) {
-                activated = true;
                 AutoMachine();
-            }
         }
     }
     else {
