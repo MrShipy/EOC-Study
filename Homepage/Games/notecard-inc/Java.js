@@ -43,16 +43,16 @@ function Quest(goal){
                 if(money>=4){
                     document.getElementById("claim").removeAttribute("disabled");
                 } else
-                 Quest(0);
+                 Quest(goal);
                  percentagecount(percentage);
             }
             if(goal==1){
-                percentage = (notecards / 4) * 100;
-                document.getElementById("assignment").innerHTML = "Assignment: Upgrade your machines (1)"
-                if(biggermachines>=2){
+                percentage = (biggermachines / 4) * 100;
+                document.getElementById("assignment").innerHTML = "Assignment: Upgrade your machines (4)"
+                if(biggermachines>=4){
                     document.getElementById("claim").removeAttribute("disabled");
                 } else
-                 Quest(0);
+                 Quest(goal);
                  percentagecount(percentage);
             }
         }, 200);
@@ -66,7 +66,10 @@ function percentagecount(percentage){
         document.getElementById("progressbar").style.backgroundColor="Yellow";
       } else if(percentage>=75 && percentage<=99){
         document.getElementById("progressbar").style.backgroundColor="Orange";
-      } else if(percentage==100){
+      } else if(percentage>=100){
+        if(percentage>100){
+            percentage = 100;
+        }
         document.getElementById("progressbar").style.backgroundColor="Green";
       }
 }
@@ -77,15 +80,14 @@ function claimreward(){
     document.getElementById("progressbar").style.backgroundColor="Red";
     if(goal==0){
         document.getElementById("biggermachines").removeAttribute("disabled");
-        goal++;
-    Quest(goal);
-    }
-    if(goal==1){
+        goal = goal + 1;
+    } else if(goal==1){
         paper = paper + 36;
-        goal++;
-    Quest(goal);
+        goal = goal + 1;
     }
-    
+    Update();
+    console.log(goal);
+    Quest(goal);
 }
 
 function upgrademachines() {
@@ -94,8 +96,7 @@ function upgrademachines() {
         multiplier = multiplier + 1;
         biggermachines = biggermachines + 1;
         machines_equation = ((5 * biggermachines) * 1.6);
-        document.getElementById("machinestitle").innerHTML = "Bigger Machines: $" + machines_equation + " (" + biggermachines + ")";
-        document.getElementById("moneytitle").innerHTML = "Money: $" + money;
+        Update();
     }
 }
 
@@ -103,9 +104,7 @@ function sellnotecard(amount) {
     if (notecards >= (amount * 52)) {
         notecards = notecards - (amount * 52);
         money = money + ((2 * (marketshare * 2)) * amount);
-        document.getElementById("number").innerHTML = "Notecards: " + notecards;
-        document.getElementById("moneytitle").innerHTML = "Money: $" + money;
-        document.getElementById("amount").innerHTML = "Pack: 52 cards (+$" + (2 * (marketshare * 2)) + ")";
+        Update();
     }
 }
 
@@ -113,9 +112,7 @@ function buymarketshare() {
     if (money >= (100 * marketshare)) {
         money = money - (100 * marketshare);
         marketshare = marketshare + 1;
-        document.getElementById("moneytitle").innerHTML = "Money: $" + money;
-        document.getElementById("marketsharetitle").innerHTML = "Market Share: $" + (100 * marketshare) + " (" + marketshare + ")"
-        document.getElementById("amount").innerHTML = "Pack: 52 cards (+$" + (2 * (marketshare * 2)) + ")";
+        Update();
     }
 }
 
@@ -123,9 +120,19 @@ function buypaper(amount) {
     if (money >= (amount * .8)) {
         money = money - (amount * .8);
         paper = paper + amount;
-        document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
-        document.getElementById("moneytitle").innerHTML = "Money: $" + money;
+        Update();
     }
+}
+
+function Update(){
+    document.getElementById("number").innerHTML = "Notecards: " + notecards;
+    document.getElementById("machinestitle").innerHTML = "Bigger Machines: $" + machines_equation + " (" + biggermachines + ")";
+    document.getElementById("automachinestitle").innerHTML = "Auto Machines: $" + automachine_equation + " (" + automachines + ")";
+    document.getElementById("moneytitle").innerHTML = "Money: $" + money;
+    document.getElementById("marketsharetitle").innerHTML = "Market Share: $" + (marketshare * 100) + " (" + marketshare + ")";
+    document.getElementById("amount").innerHTML = "Pack: 52 cards (+$" + (2 * (marketshare * 2)) + ")";
+    document.getElementById("paper").innerHTML = "1 Sheet of paper: ($" + (1 * .8) + ")";
+    document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
 }
 let timeout;
 let timeout2;
@@ -151,8 +158,7 @@ function addautomachine() {
             automachines = automachines + 1
             automachine_equation = ((automachines + 1) * 30);
             automachineactivated = 1;
-            document.getElementById("automachinestitle").innerHTML = "Auto Machines: $" + automachine_equation + " (" + automachines + ")";
-            document.getElementById("moneytitle").innerHTML = "Money: " + money;
+            Update();
            // alert("checkpoint1");
             if (automachineactivated == 1) {
                // alert("checkpoint2");
@@ -168,8 +174,7 @@ function addautomachine() {
                 money = money - automachine_equation;
                 automachines = automachines + 1
                 automachine_equation = ((automachines + 1) * 100);
-                document.getElementById("automachinestitle").innerHTML = "Auto Machines: $" + automachine_equation + " (" + automachines + ")";
-                document.getElementById("moneytitle").innerHTML = "Money: " + money;  
+                Update();
             }
         }
     }
