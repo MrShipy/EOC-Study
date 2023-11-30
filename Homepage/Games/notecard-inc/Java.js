@@ -1,13 +1,14 @@
 //var
-var notecards = 10000;
+var notecards = 0;
 var multiplier = 1;
 var biggermachines = 1;
-var money = 99999;
+var money = 0;
 var marketshare = 1;
 var savevalue = '11';
 var automachines = 0;
 var paper = 100;
 var automachineactivated = 0;
+var goal = 0;
 var activated = false;
 //datastore vars
 notecardsave = 'notecardsave' + savevalue;
@@ -22,13 +23,69 @@ papersave = 'papersave' + savevalue;
 machines_equation = ((5 * biggermachines) * 1.6);
 automachine_equation = ((automachines + 1) * 30);
 
+Quest(0);
+
 function createnote() {
     if (paper >= 0) {
         notecards = notecards + multiplier;
         document.getElementById("number").innerHTML = "Notecards: " + notecards;
         paper = paper - 0.10;
-        document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
+        document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets"; 
     }
+}
+
+var percentage = 1;
+function Quest(goal){
+        setTimeout(() => {
+            if(goal==0){
+                document.getElementById("assignment").innerHTML = "Assignment: Make $4"
+                percentage = (money / 4) * 100;
+                if(money>=4){
+                    document.getElementById("claim").removeAttribute("disabled");
+                } else
+                 Quest(0);
+                 percentagecount(percentage);
+            }
+            if(goal==1){
+                percentage = (notecards / 4) * 100;
+                document.getElementById("assignment").innerHTML = "Assignment: Upgrade your machines (1)"
+                if(biggermachines>=2){
+                    document.getElementById("claim").removeAttribute("disabled");
+                } else
+                 Quest(0);
+                 percentagecount(percentage);
+            }
+        }, 200);
+}
+
+function percentagecount(percentage){
+    document.getElementById("progressbar").style.width=percentage+'%';
+    if(percentage>=0 && percentage<=49){
+      document.getElementById("progressbar").style.backgroundColor="Red";
+    } else if(percentage>=50 && percentage<=74){
+        document.getElementById("progressbar").style.backgroundColor="Yellow";
+      } else if(percentage>=75 && percentage<=99){
+        document.getElementById("progressbar").style.backgroundColor="Orange";
+      } else if(percentage==100){
+        document.getElementById("progressbar").style.backgroundColor="Green";
+      }
+}
+
+function claimreward(){
+    document.getElementById("claim").setAttribute('disabled', 'disabled');
+    document.getElementById("progressbar").style.width='1%';
+    document.getElementById("progressbar").style.backgroundColor="Red";
+    if(goal==0){
+        document.getElementById("biggermachines").removeAttribute("disabled");
+        goal++;
+    Quest(goal);
+    }
+    if(goal==1){
+        paper = paper + 36;
+        goal++;
+    Quest(goal);
+    }
+    
 }
 
 function upgrademachines() {

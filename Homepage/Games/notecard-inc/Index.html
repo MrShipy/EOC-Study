@@ -8,6 +8,25 @@
     <title>Notecard Inc</title>
 </head>
 <body>
+    <div id="div">
+<h2><b>Audit Log:</b></h2>
+<p id="fire">Fires:</p>
+<p id="sue">Sues:</p>
+<p id="lorax">Loraxes Assasinated:</p>
+<br><br>
+<br><br>
+<br><br>
+<p id="assignment">Assignment: <b>Create 4 notecards</b></p>
+<div id="progressbar" style="width: 1%;height: 20px; background-color: rgb(255, 0, 0); border-radius: 5px;">
+</div>
+<br>
+<button onclick="claimreward()" id="claim" disabled>Claim Reward</button>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+    </div>
+
     <h1 id="number">Start or Load save</h1>
     <button onclick="createnote()">Manufacture Notecard</button>
 
@@ -23,7 +42,7 @@
     <t id="machinestitle"><b>Bigger Machines: $8 (0)</b></t>
     <br />
     <br />
-    <button onclick="upgrademachines()" id="biggermachines">Upgrade Machines</button>
+    <button onclick="upgrademachines()" id="biggermachines" disabled>Upgrade Machines</button>
     <br />
     <br />
     <br />
@@ -31,7 +50,7 @@
     <t id="automachinestitle"><b>Auto Machines: $30 (0)</b></t>
     <br />
     <br />
-    <button onclick="addautomachine()" id="automachine">Upgrade Auto Machine</button>
+    <button onclick="addautomachine()" id="automachine" disabled>Upgrade Auto Machine</button>
     <br />
     <br />
     <br />
@@ -39,7 +58,7 @@
     <t id="marketsharetitle"><b>Market Share: $1000 (1)</b></t>
     <br />
     <br />
-    <button onclick="buymarketshare()" id="marketshare">Buy Market Share</button>
+    <button onclick="buymarketshare()" id="marketshare" disabled>Buy Market Share</button>
     <br />
     <br />
     <h2 id="papertitle">Paper: 100 sheets</h2>
