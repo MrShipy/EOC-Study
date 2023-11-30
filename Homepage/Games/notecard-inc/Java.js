@@ -22,7 +22,6 @@ papersave = 'papersave' + savevalue;
 machines_equation = ((5 * biggermachines) * 1.6);
 automachine_equation = ((automachines + 1) * 30);
 
-
 function createnote() {
     if (paper >= 0) {
         notecards = notecards + multiplier;
@@ -67,7 +66,7 @@ function buypaper(amount) {
     if (money >= (amount * .8)) {
         money = money - (amount * .8);
         paper = paper + amount;
-        document.getElementById("papertitle").innerHTML = "Paper: " + math.round(paper) + " sheets";
+        document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
         document.getElementById("moneytitle").innerHTML = "Money: $" + money;
     }
 }
@@ -75,10 +74,19 @@ let timeout;
 let timeout2;
 const automachinesdelay_equation = (4000 - (automachines * 600)) + 600
 function AutoMachine() {
+<<<<<<< HEAD
     //alert((4000 - (2 * 300)) + 600);
     console.log((4000 - (automachines * 600)) + 600);
     createnote();
     timeout = setTimeout(AutoMachine2, (4000 - (automachines * 600)) + 600);
+=======
+    if (automachineactivated == 1) {
+        setTimeout(function () {
+            createnote();
+            AutoMachine();
+        }, 2000 / automachines)
+    }
+>>>>>>> 0e73f8e26baff6234070e9fa47130563ffbc6ae9
 }
 function AutoMachine2() {
     console.log((4000 - (automachines * 600)) + 600);
@@ -171,7 +179,7 @@ function load() {
         document.getElementById("marketsharetitle").innerHTML = "Market Share: $" + (marketshare * 100) + " (" + marketshare + ")";
         document.getElementById("amount").innerHTML = "Pack: 52 cards (+$" + (2 * (marketshare * 2)) + ")";
         document.getElementById("paper").innerHTML = "1 Sheet of paper: ($" + (1 * .8) + ")";
-        document.getElementById("papertitle").innerHTML = "Paper: " + math.round(paper) + " sheets";
+        document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
 
         if (multiplier == 0) {
             multiplier = 1;
@@ -183,10 +191,7 @@ function load() {
             marketshare = 1;
         }
         if (automachineactivated == 1) {
-            if (activated == false) {
-                activated = true;
                 AutoMachine();
-            }
         }
     }
     else {

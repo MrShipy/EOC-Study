@@ -7,4 +7,16 @@
 
 .save {
     height: 1000px;
+<<<<<<< HEAD
+=======
+}
+
+#div {
+    width: 300px;
+    border: 4px solid rgb(0, 0, 0);
+    padding: 5px;
+    height: 50%;
+    margin: 10px;
+    float: right;
+>>>>>>> 0e73f8e26baff6234070e9fa47130563ffbc6ae9
 }
