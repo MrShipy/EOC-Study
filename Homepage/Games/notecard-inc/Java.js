@@ -74,19 +74,10 @@ let timeout;
 let timeout2;
 const automachinesdelay_equation = (4000 - (automachines * 600)) + 600
 function AutoMachine() {
-<<<<<<< HEAD
     //alert((4000 - (2 * 300)) + 600);
     console.log((4000 - (automachines * 600)) + 600);
     createnote();
     timeout = setTimeout(AutoMachine2, (4000 - (automachines * 600)) + 600);
-=======
-    if (automachineactivated == 1) {
-        setTimeout(function () {
-            createnote();
-            AutoMachine();
-        }, 2000 / automachines)
-    }
->>>>>>> 0e73f8e26baff6234070e9fa47130563ffbc6ae9
 }
 function AutoMachine2() {
     console.log((4000 - (automachines * 600)) + 600);
