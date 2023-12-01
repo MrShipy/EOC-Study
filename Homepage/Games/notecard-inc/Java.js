@@ -12,7 +12,10 @@ var goal = 0;
 var activated = false;
 let reward
 var timedelay = 0;
+var firedebounce = false;
 var fire = false;
+var firesamounts = 0;
+var firealarms = 0;
 //datastore vars
 notecardsave = 'notecardsave' + savevalue;
 biggermachinesave = 'biggermachinesave' + savevalue;
@@ -22,13 +25,21 @@ automachinesave = 'automachinesave' + savevalue;
 moneysave = 'moneysave' + savevalue;
 marketsharesave = 'marketsharesave' + savevalue;
 papersave = 'papersave' + savevalue;
+questsave = 'questsave' + savevalue;
+firealarmsave= 'firealarmsave' + savevalue;
 //equations
 machines_equation = ((5 * biggermachines) * 1.6);
 automachine_equation = ((automachines + 1) * 30);
 
-Quest(0);
+Quest(goal);
 function startfire() {
   document.body.style.backgroundColor = "#d90b0e";
+  document.getElementById("number").style.color = "White";
+    document.getElementById("notecardclicker").disabled = true;
+    automachineactivated = 0;
+    console.log(notecards);
+    notecards = notecards - Math.floor(Math.random() * Number(notecards));
+    Update();
 }
 
 function createnote() {
@@ -37,14 +48,23 @@ function createnote() {
         document.getElementById("number").innerHTML = "Notecards: " + notecards;
         paper = paper - 0.10;
         document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
-        timedelay = notecards;
-        setTimeout(() => {
-            if(fire == false){
-                if((timedelay - notecards) >= 50){
-                    
+        if(firedebounce==false && fire==false){
+            console.log("No fire");
+            firedebounce=true;
+            timedelay=notecards;
+            setTimeout(() => {
+                console.log((notecards-timedelay));
+                if((notecards - timedelay) >= 25){
+                    firedebounce=false;
+                    fire=true;
+                    console.warn("FIRE ALRM GOES OFF!!!");
+                    firesamounts=firesamounts+1;
+                    Update();
+                    startfire();
                 }
-            }
-        }, 1000);
+                firedebounce=false;
+            }, 1000);
+        }
     }
 }
 
@@ -209,20 +229,25 @@ function Update(){
     document.getElementById("amount").innerHTML = "Pack: 52 cards (+$" + (2 * (marketshare * 2)) + ")";
     document.getElementById("paper").innerHTML = "1 Sheet of paper: ($" + (1 * .8) + ")";
     document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
+    document.getElementById("fire").innerHTML = "Fires: " + firesamounts;
+    document.getElementById("firesafety").innerHTML = "Fire alarms (" + firealarms + ")"
 }
 let timeout;
 let timeout2;
 const automachinesdelay_equation = (4000 - (automachines * 600)) + 600
 function AutoMachine() {
-    //alert((4000 - (2 * 300)) + 600);
-    console.log((4000 - (automachines * 600)) + 600);
-    createnote();
-    timeout = setTimeout(AutoMachine2, (4000 - (automachines * 600)) + 600);
+    if(automachineactivated==1){
+        createnote();
+        timeout = setTimeout(AutoMachine2, (4000 - (automachines * 600)) + 600);
+    }
+    
 }
 function AutoMachine2() {
-    console.log((4000 - (automachines * 600)) + 600);
-   createnote();
-    timeout2 = setTimeout(AutoMachine, (4000 - (automachines * 600)) + 600);
+    if(automachineactivated==1){
+        createnote();
+         timeout2 = setTimeout(AutoMachine, (4000 - (automachines * 600)) + 600);
+    }
+    
 }
                   //  start the loop
 function addautomachine() {
@@ -268,6 +293,8 @@ function save() {
     localStorage.setItem(moneysave, Number(money));
     localStorage.setItem(marketsharesave, Number(marketshare));
     localStorage.setItem(papersave, Number(paper));
+    localStorage.setItem(questsave, Number(goal));
+    localStorage.setItem(firealarmsave, Number(firealarms));
 }
 
 function load() {
@@ -298,6 +325,12 @@ function load() {
         marketshare = localStorage.getItem(marketsharesave);
         marketshare = Number(marketshare);
 
+        goal = localStorage.getItem(questsave);
+        goal = Number(goal);
+
+        firealarms = localStorage.getItem(firealarmsave);
+        firealarms = Number(firealarms);
+
         //datastore settext
         machines_equation = ((5 * biggermachines) * 1.6);
         automachine_equation = ((automachines + 1) * 30);
@@ -309,6 +342,7 @@ function load() {
         document.getElementById("amount").innerHTML = "Pack: 52 cards (+$" + (2 * (marketshare * 2)) + ")";
         document.getElementById("paper").innerHTML = "1 Sheet of paper: ($" + (1 * .8) + ")";
         document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
+        document.getElementById("firesafety").innerHTML = "Fire alarms (" + firealarms + ")"
 
         if (multiplier == 0) {
             multiplier = 1;
