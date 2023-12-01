@@ -128,7 +128,7 @@ function Quest(goal){
                  percentagecount(percentage);
             }
             if(goal==4){
-                percentage = (automachines / 1) * 100;
+                percentage = (money / 100) * 100;
                 document.getElementById("assignment").innerHTML = "Assignment: Make $100"
                 if(money>=100){
                     document.getElementById("claim").removeAttribute("disabled");
@@ -384,6 +384,21 @@ function load() {
         if (automachineactivated == 1) {
                 AutoMachine();
         }
+
+        if(goal>=0){
+            document.getElementById("biggermachines").disabled = false;
+        }
+        if(goal>=2){
+            document.getElementById("automachine").disabled = false;
+        }
+        if(goal>=4){
+            document.getElementById("firediv").style.display="block";
+        }
+        if(goal>=5){
+            document.getElementById("marketshare").disabled = false;
+        }
+
+        Quest(goal);
     }
     else {
         alert("You cant load if you have no save");
