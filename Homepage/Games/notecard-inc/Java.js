@@ -15,7 +15,9 @@ var timedelay = 0;
 var firedebounce = false;
 var fire = false;
 var firesamounts = 0;
-var firealarms = 0;
+var firealarms = 1;
+var firealarmactivated = 0;
+var nps = 0;
 //datastore vars
 notecardsave = 'notecardsave' + savevalue;
 biggermachinesave = 'biggermachinesave' + savevalue;
@@ -26,19 +28,38 @@ moneysave = 'moneysave' + savevalue;
 marketsharesave = 'marketsharesave' + savevalue;
 papersave = 'papersave' + savevalue;
 questsave = 'questsave' + savevalue;
-firealarmsave= 'firealarmsave' + savevalue;
+firealarmsave = 'firealarmsave' + savevalue;
+firealarmactivatedsave = 'firealarmactivatedsave' + savevalue;
 //equations
 machines_equation = ((5 * biggermachines) * 1.6);
 automachine_equation = ((automachines + 1) * 30);
 
 Quest(goal);
+
 function startfire() {
-  document.body.style.backgroundColor = "#d90b0e";
-  document.getElementById("number").style.color = "White";
+  document.body.style.animation="fireIn 2s linear";
+  document.getElementById("save").disabled = true;
+  document.getElementById("load").disabled = true;
+  setTimeout(() => {
+    document.body.style.backgroundColor = "red";
+  }, 2000);
+  document.getElementById("number").style.color = "white";
     document.getElementById("notecardclicker").disabled = true;
     automachineactivated = 0;
-    console.log(notecards);
-    notecards = notecards - Math.floor(Math.random() * Number(notecards));
+    setTimeout(() => {
+        notecards = notecards - Math.floor(Math.random() * (notecards/firealarms));
+        paper = paper - Math.floor(Math.random() * (paper/(firealarms * 2)));
+        Update();
+        document.body.style.animation="fireOut 6s linear";
+    document.getElementById("number").style.color = "black";
+    }, 6000);
+    setTimeout(() => {
+        document.body.style.backgroundColor = "white";
+        document.getElementById("notecardclicker").disabled = false;
+        document.getElementById("save").disabled = false;
+        document.getElementById("load").disabled = false;
+        fire = false;
+    }, 11000);
     Update();
 }
 
@@ -49,12 +70,11 @@ function createnote() {
         paper = paper - 0.10;
         document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
         if(firedebounce==false && fire==false){
-            console.log("No fire");
             firedebounce=true;
             timedelay=notecards;
             setTimeout(() => {
-                console.log((notecards-timedelay));
-                if((notecards - timedelay) >= 25){
+                nps = (notecards - timedelay);
+                if((notecards - timedelay) >= (25*(firealarms*1.6))){
                     firedebounce=false;
                     fire=true;
                     console.warn("FIRE ALRM GOES OFF!!!");
@@ -109,20 +129,19 @@ function Quest(goal){
             }
             if(goal==4){
                 percentage = (automachines / 1) * 100;
-                document.getElementById("assignment").innerHTML = "Assignment: Buy (1) Auto Machines"
-                if(automachines>=1){
+                document.getElementById("assignment").innerHTML = "Assignment: Make $100"
+                if(money>=100){
                     document.getElementById("claim").removeAttribute("disabled");
                 } else
                  Quest(goal);
                  percentagecount(percentage);
-            }
-            if(goal==5){
-                percentage = (automachines / 1) * 100;
-                document.getElementById("assignment").innerHTML = "Assignment: Buy (1) Auto Machines"
-                if(automachines>=1){
+            } if(goal==5){
+                percentage = (nps / 30) * 100;
+                document.getElementById("assignment").innerHTML = "Assignment: Make 30 notecards per second"
+                if(nps>=100){
                     document.getElementById("claim").removeAttribute("disabled");
                 } else
-                 Quest(goal);
+                Quest(goal);
                  percentagecount(percentage);
             }
         }, 200);
@@ -165,13 +184,14 @@ function claimreward(){
         goal = goal + 1;
         reward = '+2 Bigger Machines';
     } else if(goal==4){
-        biggermachines = biggermachines + 2;
+        document.getElementById("firediv").style.display="block";
         goal = goal + 1;
-        reward = '+2 Bigger Machines';
+        reward = '"Fire alarm" unlocked';
+        firealarmactivated = 1;
     } else if(goal==5){
-        biggermachines = biggermachines + 2;
-        goal = goal + 1;
-        reward = '+2 Bigger Machines';
+       // goal = goal + 1;
+        document.getElementById("marketshare").disabled = false;
+        reward = '"Market Share" unlocked';
     }
     document.getElementById("reward").innerHTML = "Reward: " + reward;
     document.getElementById("reward").style.animation="fadeIn 5s ease-out";
@@ -295,6 +315,7 @@ function save() {
     localStorage.setItem(papersave, Number(paper));
     localStorage.setItem(questsave, Number(goal));
     localStorage.setItem(firealarmsave, Number(firealarms));
+    localStorage.setItem(firealarmactivatedsave, Number(firealarmactivated));
 }
 
 function load() {
@@ -331,6 +352,9 @@ function load() {
         firealarms = localStorage.getItem(firealarmsave);
         firealarms = Number(firealarms);
 
+        firealarmactivated = localStorage.getItem(firealarmactivatedsave);
+        firealarmactivated = Number(firealarmactivated);
+
         //datastore settext
         machines_equation = ((5 * biggermachines) * 1.6);
         automachine_equation = ((automachines + 1) * 30);
@@ -343,6 +367,10 @@ function load() {
         document.getElementById("paper").innerHTML = "1 Sheet of paper: ($" + (1 * .8) + ")";
         document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
         document.getElementById("firesafety").innerHTML = "Fire alarms (" + firealarms + ")"
+
+        if(firealarmactivated==1){
+            document.getElementById("firediv").style.display="block";
+        }
 
         if (multiplier == 0) {
             multiplier = 1;

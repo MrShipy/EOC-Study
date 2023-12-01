@@ -12,8 +12,8 @@
     <div id="div">
 <h2><b>Notecard Inc</b></h2>
 <p id="fire">Fires: 0</p>
-<p id="sue">Sues: 0</p>
-<p id="lorax">Loraxes Assasinated: 0</p>
+<p id="sue" style="display: none;">Sues: 0</p>
+<p id="lorax" style="display: none;">Loraxes Assasinated: 0</p>
 <br><br>
 <br><br>
 <br><br>
@@ -65,7 +65,7 @@
     <br />
     <br />
     <br />
-    <div style="display: block;">
+    <div id="firediv" style="display: none;">
         <t id="firesafety"><b>Fire alarm (0)</b></t>
         <br />
         <br />
@@ -82,10 +82,10 @@
     <div class="savediv">
         <div>
             <div>
-                <button onclick="save()" class="savebutton">
+                <button id="save" onclick="save()" class="savebutton">
                     Save
                 </button>
-                <button onclick="load()" class="savebutton">
+                <button id="load" onclick="load()" class="savebutton">
                     Load
                 </button>
             </div>
