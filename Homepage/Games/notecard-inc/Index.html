@@ -10,10 +10,10 @@
 
 <body>
     <div id="div">
-<h2><b>Audit Log:</b></h2>
-<p id="fire">Fires:</p>
-<p id="sue">Sues:</p>
-<p id="lorax">Loraxes Assasinated:</p>
+<h2><b>Notecard Inc</b></h2>
+<p id="fire">Fires: 0</p>
+<p id="sue">Sues: 0</p>
+<p id="lorax">Loraxes Assasinated: 0</p>
 <br><br>
 <br><br>
 <br><br>
@@ -22,6 +22,7 @@
 </div>
 <br>
 <button onclick="claimreward()" id="claim" disabled>Claim Reward</button>
+<p id="reward">Reward</p>
 <br><br>
 <br><br>
 <br><br>
@@ -56,12 +57,22 @@
     <br />
     <br />
     <br />
-    <t id="marketsharetitle"><b>Market Share: $1000 (1)</b></t>
+    <t id="marketsharetitle"><b>Market Share: $400 (0)</b></t>
     <br />
     <br />
     <button onclick="buymarketshare()" id="marketshare" disabled>Buy Market Share</button>
     <br />
     <br />
+    <br />
+    <br />
+    <div style="display: block;">
+        <t id="firesafety"><b>Fire alarm (0)</b></t>
+        <br />
+        <br />
+        <button onclick="buyfirealarm()" id="firealarm" disabled>Buy Fire Alarm</button>
+
+
+    </div>
     <h2 id="papertitle">Paper: 100 sheets</h2>
     <h5 id="paper">1 Sheet of paper: ($0.8)</h5>
     <button onclick="buypaper(10)">Buy 10 sheets of paper</button>

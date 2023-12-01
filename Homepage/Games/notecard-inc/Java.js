@@ -10,6 +10,9 @@ var paper = 100;
 var automachineactivated = 0;
 var goal = 0;
 var activated = false;
+let reward
+var timedelay = 0;
+var fire = false;
 //datastore vars
 notecardsave = 'notecardsave' + savevalue;
 biggermachinesave = 'biggermachinesave' + savevalue;
@@ -24,13 +27,24 @@ machines_equation = ((5 * biggermachines) * 1.6);
 automachine_equation = ((automachines + 1) * 30);
 
 Quest(0);
+function startfire() {
+  document.body.style.backgroundColor = "#d90b0e";
+}
 
 function createnote() {
     if (paper >= 0) {
         notecards = notecards + multiplier;
         document.getElementById("number").innerHTML = "Notecards: " + notecards;
         paper = paper - 0.10;
-        document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets"; 
+        document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
+        timedelay = notecards;
+        setTimeout(() => {
+            if(fire == false){
+                if((timedelay - notecards) >= 50){
+                    
+                }
+            }
+        }, 1000);
     }
 }
 
@@ -47,9 +61,45 @@ function Quest(goal){
                  percentagecount(percentage);
             }
             if(goal==1){
-                percentage = (biggermachines / 4) * 100;
-                document.getElementById("assignment").innerHTML = "Assignment: Upgrade your machines (4)"
-                if(biggermachines>=4){
+                percentage = (biggermachines / 3) * 100;
+                document.getElementById("assignment").innerHTML = "Assignment: Upgrade your machines (3)"
+                if(biggermachines>=3){
+                    document.getElementById("claim").removeAttribute("disabled");
+                } else
+                 Quest(goal);
+                 percentagecount(percentage);
+            }
+            if(goal==2){
+                percentage = (money / 30) * 100;
+                document.getElementById("assignment").innerHTML = "Assignment: Make $30"
+                if(money>=30){
+                    document.getElementById("claim").removeAttribute("disabled");
+                } else
+                 Quest(goal);
+                 percentagecount(percentage);
+            }
+            if(goal==3){
+                percentage = (automachines / 1) * 100;
+                document.getElementById("assignment").innerHTML = "Assignment: Buy (1) Auto Machines"
+                if(automachines>=1){
+                    document.getElementById("claim").removeAttribute("disabled");
+                } else
+                 Quest(goal);
+                 percentagecount(percentage);
+            }
+            if(goal==4){
+                percentage = (automachines / 1) * 100;
+                document.getElementById("assignment").innerHTML = "Assignment: Buy (1) Auto Machines"
+                if(automachines>=1){
+                    document.getElementById("claim").removeAttribute("disabled");
+                } else
+                 Quest(goal);
+                 percentagecount(percentage);
+            }
+            if(goal==5){
+                percentage = (automachines / 1) * 100;
+                document.getElementById("assignment").innerHTML = "Assignment: Buy (1) Auto Machines"
+                if(automachines>=1){
                     document.getElementById("claim").removeAttribute("disabled");
                 } else
                  Quest(goal);
@@ -79,15 +129,41 @@ function claimreward(){
     document.getElementById("progressbar").style.width='1%';
     document.getElementById("progressbar").style.backgroundColor="Red";
     if(goal==0){
-        document.getElementById("biggermachines").removeAttribute("disabled");
+        document.getElementById("biggermachines").disabled = false;
         goal = goal + 1;
+        reward = '"Bigger Machines" unlocked';
     } else if(goal==1){
         paper = paper + 36;
         goal = goal + 1;
+        reward = '+36 paper';
+    } else if(goal==2){
+        document.getElementById("automachine").disabled = false;
+        goal = goal + 1;
+        reward = '+auto machines unlocked';
+    } else if(goal==3){
+        biggermachines = biggermachines + 2;
+        goal = goal + 1;
+        reward = '+2 Bigger Machines';
+    } else if(goal==4){
+        biggermachines = biggermachines + 2;
+        goal = goal + 1;
+        reward = '+2 Bigger Machines';
+    } else if(goal==5){
+        biggermachines = biggermachines + 2;
+        goal = goal + 1;
+        reward = '+2 Bigger Machines';
     }
+    document.getElementById("reward").innerHTML = "Reward: " + reward;
+    document.getElementById("reward").style.animation="fadeIn 5s ease-out";
     Update();
     console.log(goal);
     Quest(goal);
+    setTimeout(() => {
+        document.getElementById("reward").style.animation="idle 10s linear";
+    }, 5000);
+    setTimeout(() => {
+        document.getElementById("reward").style.animation="fadeOut 5s ease-out";
+    }, 15000);
 }
 
 function upgrademachines() {
@@ -109,8 +185,8 @@ function sellnotecard(amount) {
 }
 
 function buymarketshare() {
-    if (money >= (100 * marketshare)) {
-        money = money - (100 * marketshare);
+    if (money >= (400 * marketshare)) {
+        money = money - (400 * marketshare);
         marketshare = marketshare + 1;
         Update();
     }
