@@ -2,7 +2,7 @@
 var notecards = 0;
 var multiplier = 1;
 var biggermachines = 1;
-var money = 9999;
+var money = 0;
 var marketshare = 1;
 var savevalue = '11';
 var automachines = 0;
@@ -78,11 +78,11 @@ function createnote() {
             timedelay=notecards;
             setTimeout(() => {
                 nps = (notecards - timedelay);
-                if((notecards - timedelay) >= (25*(firealarms*6))){
+                if((notecards - timedelay) >= (25*(firealarms*1.5))){
                     firedebounce=false;
                     fire=true;
                     console.warn("FIRE ALRM GOES OFF!!!");
-                    console.log(nps + "|" + 25*(firealarms*6));
+                    console.log(nps + "|" + 25*(firealarms*1.5));
                     firesamounts=firesamounts+1;
                     Update();
                     startfire();
@@ -141,9 +141,9 @@ function Quest(goal){
                  Quest(goal);
                  percentagecount(percentage);
             } if(goal==5){
-                percentage = (nps / 30) * 100;
-                document.getElementById("assignment").innerHTML = "Assignment: Make 30 notecards per second"
-                if(nps>=100){
+                percentage = (nps / 50) * 100;
+                document.getElementById("assignment").innerHTML = "Assignment: Make 50 notecards per second"
+                if(nps>=50){
                     document.getElementById("claim").removeAttribute("disabled");
                 } else
                 Quest(goal);
@@ -310,7 +310,7 @@ function addautomachine() {
                 //alert("checkpoint1");
                 money = money - automachine_equation;
                 automachines = automachines + 1
-                automachine_equation = ((automachines + 1) * 100);
+                automachine_equation = ((automachines + 1) * 30);
                 Update();
             }
         }
