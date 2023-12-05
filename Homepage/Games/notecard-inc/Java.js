@@ -4,7 +4,7 @@ var multiplier = 1;
 var biggermachines = 1;
 var money = 0;
 var marketshare = 1;
-var savevalue = '11';
+var savevalue = '14';
 var automachines = 0;
 var paper = 100;
 var automachineactivated = 0;
@@ -78,11 +78,11 @@ function createnote() {
             timedelay=notecards;
             setTimeout(() => {
                 nps = (notecards - timedelay);
-                if((notecards - timedelay) >= (25*(firealarms*1.5))){
+                if((notecards - timedelay) >= (40*(firealarms*1.6))){
                     firedebounce=false;
                     fire=true;
                     console.warn("FIRE ALRM GOES OFF!!!");
-                    console.log(nps + "|" + 25*(firealarms*1.5));
+                    console.log(nps + "|" + 40*(firealarms*1.6));
                     firesamounts=firesamounts+1;
                     Update();
                     startfire();
@@ -424,4 +424,5 @@ function load() {
 
 window.addEventListener('beforeunload', (event) => {
    // event.returnValue = 'Are you sure you want to leave?';
+   save();
 });
