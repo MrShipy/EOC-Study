@@ -4,7 +4,7 @@ var multiplier = 1;
 var biggermachines = 1;
 var money = 0;
 var marketshare = 1;
-var savevalue = '11';
+var savevalue = '14';
 var automachines = 0;
 var paper = 100;
 var automachineactivated = 0;
@@ -58,6 +58,10 @@ function startfire() {
         document.getElementById("notecardclicker").disabled = false;
         document.getElementById("save").disabled = false;
         document.getElementById("load").disabled = false;
+        if(automachines>=1){
+            automachineactivated = 1;
+            AutoMachine();
+        }
         fire = false;
     }, 11000);
     Update();
@@ -74,10 +78,11 @@ function createnote() {
             timedelay=notecards;
             setTimeout(() => {
                 nps = (notecards - timedelay);
-                if((notecards - timedelay) >= (25*(firealarms*1.6))){
+                if((notecards - timedelay) >= (40*(firealarms*1.6))){
                     firedebounce=false;
                     fire=true;
                     console.warn("FIRE ALRM GOES OFF!!!");
+                    console.log(nps + "|" + 40*(firealarms*1.6));
                     firesamounts=firesamounts+1;
                     Update();
                     startfire();
@@ -128,7 +133,7 @@ function Quest(goal){
                  percentagecount(percentage);
             }
             if(goal==4){
-                percentage = (automachines / 1) * 100;
+                percentage = (money / 100) * 100;
                 document.getElementById("assignment").innerHTML = "Assignment: Make $100"
                 if(money>=100){
                     document.getElementById("claim").removeAttribute("disabled");
@@ -136,9 +141,9 @@ function Quest(goal){
                  Quest(goal);
                  percentagecount(percentage);
             } if(goal==5){
-                percentage = (nps / 30) * 100;
-                document.getElementById("assignment").innerHTML = "Assignment: Make 30 notecards per second"
-                if(nps>=100){
+                percentage = (nps / 50) * 100;
+                document.getElementById("assignment").innerHTML = "Assignment: Make 50 notecards per second"
+                if(nps>=50){
                     document.getElementById("claim").removeAttribute("disabled");
                 } else
                 Quest(goal);
@@ -148,6 +153,9 @@ function Quest(goal){
 }
 
 function percentagecount(percentage){
+    if(percentage>100){
+        percentage = 100;
+    }
     document.getElementById("progressbar").style.width=percentage+'%';
     if(percentage>=0 && percentage<=49){
       document.getElementById("progressbar").style.backgroundColor="Red";
@@ -232,6 +240,14 @@ function buymarketshare() {
     }
 }
 
+function buyfirealarm(){
+    if (money >= (100 * firealarms)) {
+        money = money - (100 * firealarms);
+        firealarms = firealarms + 1;
+        Update();
+    }
+}
+
 function buypaper(amount) {
     if (money >= (amount * .8)) {
         money = money - (amount * .8);
@@ -245,12 +261,12 @@ function Update(){
     document.getElementById("machinestitle").innerHTML = "Bigger Machines: $" + machines_equation + " (" + biggermachines + ")";
     document.getElementById("automachinestitle").innerHTML = "Auto Machines: $" + automachine_equation + " (" + automachines + ")";
     document.getElementById("moneytitle").innerHTML = "Money: $" + money;
-    document.getElementById("marketsharetitle").innerHTML = "Market Share: $" + (marketshare * 100) + " (" + marketshare + ")";
+    document.getElementById("marketsharetitle").innerHTML = "Market Share: $" + (marketshare * 400) + " (" + marketshare + ")";
     document.getElementById("amount").innerHTML = "Pack: 52 cards (+$" + (2 * (marketshare * 2)) + ")";
     document.getElementById("paper").innerHTML = "1 Sheet of paper: ($" + (1 * .8) + ")";
     document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
     document.getElementById("fire").innerHTML = "Fires: " + firesamounts;
-    document.getElementById("firesafety").innerHTML = "Fire alarms (" + firealarms + ")"
+    document.getElementById("firesafety").innerHTML = "Fire alarms: $" + (firealarms * 100) + " (" + firealarms + ")"
 }
 let timeout;
 let timeout2;
@@ -294,7 +310,7 @@ function addautomachine() {
                 //alert("checkpoint1");
                 money = money - automachine_equation;
                 automachines = automachines + 1
-                automachine_equation = ((automachines + 1) * 100);
+                automachine_equation = ((automachines + 1) * 30);
                 Update();
             }
         }
@@ -366,7 +382,7 @@ function load() {
         document.getElementById("amount").innerHTML = "Pack: 52 cards (+$" + (2 * (marketshare * 2)) + ")";
         document.getElementById("paper").innerHTML = "1 Sheet of paper: ($" + (1 * .8) + ")";
         document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
-        document.getElementById("firesafety").innerHTML = "Fire alarms (" + firealarms + ")"
+        document.getElementById("firesafety").innerHTML = "Fire alarms: $" + (firealarms * 100) + " (" + firealarms + ")"
 
         if(firealarmactivated==1){
             document.getElementById("firediv").style.display="block";
@@ -384,6 +400,21 @@ function load() {
         if (automachineactivated == 1) {
                 AutoMachine();
         }
+
+        if(goal>0){
+            document.getElementById("biggermachines").disabled = false;
+        }
+        if(goal>2){
+            document.getElementById("automachine").disabled = false;
+        }
+        if(goal>4){
+            document.getElementById("firediv").style.display="block";
+        }
+        if(goal>5){
+            document.getElementById("marketshare").disabled = false;
+        }
+
+        Quest(goal);
     }
     else {
         alert("You cant load if you have no save");
@@ -393,4 +424,5 @@ function load() {
 
 window.addEventListener('beforeunload', (event) => {
    // event.returnValue = 'Are you sure you want to leave?';
+   save();
 });
