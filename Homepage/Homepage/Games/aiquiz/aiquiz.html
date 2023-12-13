@@ -1,0 +1,99 @@
+<html>
+    <title>Quizam!</title>
+    <t id="score">Score: 100%</t>
+    <body>
+<h1 id="q">Question</h1>
+<button id="b1" onclick="answer(1)">A</button>
+<br><br>
+<button id="b2" onclick="answer(2)">B</button>
+<br><br>
+<button id="b3" onclick="answer(3)">C</button>
+<br><br>
+<button id="b4" onclick="answer(4)">D</button>
+<br><br>
+    </body>
+    <script>
+        var q;
+        let table = [
+        {question: "21. Which molecule is responsible for carrying genetic information?", a1: "mRNA", a2: "tRNA", a3: "RNA", a4: "DNA", correct: 4},
+  {question: "22. During replication, what does DNA polymerase do?", a1: "Unwinds the DNA helix", a2: "Adds nucleotides to the growing DNA strand", a3: "Transfers amino acids", a4: "Cuts the DNA strand", correct: 2},
+  {question: "23. What are the building blocks of DNA?", a1: "Amino acids", a2: "Glycerol", a3: "Nucleotides", a4: "Fatty acids", correct: 3},
+  {question: "24. What is the function of RNA polymerase?", a1: "Synthesizing lipids", a2: "Synthesizing proteins", a3: "Synthesizing mRNA from DNA", a4: "Synthesizing tRNA from mRNA", correct: 3},
+  {question: "25. What is the process of copying genetic information from DNA to RNA called?", a1: "Translation", a2: "Transcription", a3: "Replication", a4: "Translocation", correct: 2},
+  {question: "26. Which type of RNA forms the structure of ribosomes?", a1: "mRNA", a2: "tRNA", a3: "rRNA", a4: "hnRNA", correct: 3},
+  {question: "27. What is the complementary base pair of Adenine in DNA?", a1: "Uracil", a2: "Cytosine", a3: "Guanine", a4: "Thymine", correct: 4},
+  {question: "28. In which cellular organelle does protein synthesis occur?", a1: "Nucleus", a2: "Mitochondria", a3: "Ribosome", a4: "Golgi apparatus", correct: 3},
+  {question: "29. What is the role of helicase in DNA replication?", a1: "It synthesizes new DNA strands", a2: "It adds amino acids to proteins", a3: "It unwinds the DNA helix", a4: "It transports proteins", correct: 3},
+  {question: "30. What is a codon?", a1: "A three-nucleotide sequence of DNA", a2: "A three-amino acid sequence of a protein", a3: "A three-nucleotide sequence of RNA that specifies an amino acid", a4: "A type of mutation", correct: 3},
+  {question: "1. What is the role of mRNA in protein synthesis?", a1: "Carries amino acids to the ribosome", a2: "Carries genetic code from DNA to the ribosome", a3: "Makes up the structure of the ribosome", a4: "Helps in the replication of DNA", correct: 2},
+  {question: "2. What does tRNA do during protein synthesis?", a1: "Transfers amino acids to the ribosome", a2: "Transfers nucleotides to the nucleus", a3: "Transfers mRNA out of the nucleus", a4: "Transfers ribosomes to the endoplasmic reticulum", correct: 1},
+  {question: "3. What is RNA?", a1: "A type of protein", a2: "A type of lipid", a3: "A nucleic acid", a4: "A carbohydrate", correct: 3},
+  {question: "4. What does DNA stand for?", a1: "Deoxyribonucleic Acid", a2: "Dioxyribonucleic Acid", a3: "Deoxyribosenucleic Acid", a4: "Dioxyribosenucleic Acid", correct: 1},
+  {question: "5. What is the first step of DNA replication?", a1: "Elongation", a2: "Termination", a3: "Initiation", a4: "Translation", correct: 3},
+  // ... more questions ...
+  {question: "20. What is the shape of DNA?", a1: "Single helix", a2: "Double helix", a3: "Triple helix", a4: "Quadruple helix", correct: 2},
+        ];
+var length = table.length;
+var correct = 0;
+var done = 0;
+var incorrect = 0;
+var correctquestion = false;
+var answered = false;
+
+
+        let numbers ="";
+        generatequestion();
+        function generatequestion(){
+            correctquestion = false;
+            answered = false;
+            if(done>=1){
+                document.getElementById("score").innerHTML = Math.floor((correct / done) * 100) + "%" + " (" + correct + "/" + done + ")";
+            }
+            
+            
+            qnumber = Math.floor((Math.random() * table.length));
+            if(!numbers.includes(qnumber)){
+                document.getElementById("b1").style.backgroundColor = "White";
+                document.getElementById("b2").style.backgroundColor = "White";
+                document.getElementById("b3").style.backgroundColor = "White";
+                document.getElementById("b4").style.backgroundColor = "White";
+                done = done + 1;
+                q = table[qnumber];
+                document.getElementById("q").innerHTML = q.question;
+                document.getElementById("b1").innerHTML = q.a1;
+                document.getElementById("b2").innerHTML = q.a2;
+                document.getElementById("b3").innerHTML = q.a3;
+                document.getElementById("b4").innerHTML = q.a4;
+                var ttable = document.getElementById("table");
+            } else {generatequestion();}
+        }
+        function answer(banswer){
+            if(q.correct == banswer){
+                if(answered == false){
+                    answered=true;
+                    document.getElementById("b" + banswer).style.backgroundColor = "#90ee90";
+                console.log(correct + "||" + incorrect);
+                if(correctquestion==false){
+                        correct = correct + 1;
+                    }
+                    correctquestion = false;
+                setTimeout(() => {
+                    generatequestion();
+                    numbers = numbers + qnumber.toString();
+                console.log(numbers);
+                
+                    
+                }, 1000);
+                }
+                
+            } else {
+                document.getElementById("b" + banswer).style.backgroundColor = "Red";
+                console.log("wrong");
+                if(correctquestion==true){
+                    incorrect = incorrect + 1;
+                }
+                correctquestion = true;
+            }
+        }
+    </script>
+</html>
