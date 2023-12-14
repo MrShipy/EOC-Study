@@ -18,6 +18,7 @@ var firesamounts = 0;
 var firealarms = 1;
 var firealarmactivated = 0;
 var nps = 0;
+var capacity = (40*(firealarms*1.2));
 //datastore vars
 notecardsave = 'notecardsave' + savevalue;
 biggermachinesave = 'biggermachinesave' + savevalue;
@@ -73,23 +74,7 @@ function createnote() {
         document.getElementById("number").innerHTML = "Notecards: " + notecards;
         paper = paper - 0.10;
         document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
-        if(firedebounce==false && fire==false){
-            firedebounce=true;
-            timedelay=notecards;
-            setTimeout(() => {
-                nps = (notecards - timedelay);
-                if((notecards - timedelay) >= (40*(firealarms*1.6))){
-                    firedebounce=false;
-                    fire=true;
-                    console.warn("FIRE ALRM GOES OFF!!!");
-                    console.log(nps + "|" + 40*(firealarms*1.6));
-                    firesamounts=firesamounts+1;
-                    Update();
-                    startfire();
-                }
-                firedebounce=false;
-            }, 1000);
-        }
+        
     }
 }
 
@@ -171,6 +156,25 @@ function percentagecount(percentage){
       }
 }
 
+function percentagecountfire(percentage){
+    if(percentage>100){
+        percentage = 100;
+    }
+    document.getElementById("firemeter").style.width=percentage+'%';
+    if(percentage>=0 && percentage<=49){
+      document.getElementById("firemeter").style.backgroundColor="Green";
+    } else if(percentage>=50 && percentage<=74){
+        document.getElementById("firemeter").style.backgroundColor="Yellow";
+      } else if(percentage>=75 && percentage<=99){
+        document.getElementById("firemeter").style.backgroundColor="Orange";
+      } else if(percentage>=100){
+        if(percentage>100){
+            percentage = 100;
+        }
+        document.getElementById("firemeter").style.backgroundColor="Red";
+      }
+}
+
 function claimreward(){
     document.getElementById("claim").setAttribute('disabled', 'disabled');
     document.getElementById("progressbar").style.width='1%';
@@ -242,6 +246,7 @@ function buymarketshare() {
 
 function buyfirealarm(){
     if (money >= (100 * firealarms)) {
+        capacity = (40*(firealarms*1.2));
         money = money - (100 * firealarms);
         firealarms = firealarms + 1;
         Update();
@@ -285,6 +290,42 @@ function AutoMachine2() {
     }
     
 }
+Loop();
+
+function Loop() {
+    setTimeout(function() {
+      
+        if(nps > 0){
+            capacity = (40*(firealarms*1.2));
+            document.getElementById("nps").innerHTML = "NPS: " + nps;
+            document.getElementById("capacity").innerHTML = "Capacity: " + capacity + " NPS";
+            document.getElementById("firemeter").style = "width: " + (((nps / capacity) * 100) * 3) + "px";
+            percentagecountfire((((nps / capacity) * 100)));
+        }
+
+        if(firedebounce==false && fire==false){
+            firedebounce=true;
+            timedelay=notecards;
+            setTimeout(() => {
+                nps = (notecards - timedelay);
+                if((notecards - timedelay) >= capacity){
+                    firedebounce=false;
+                    fire=true;
+                    console.warn("FIRE ALRM GOES OFF!!!");
+                    console.log(nps + "|" + capacity);
+                    firesamounts=firesamounts+1;
+                    Update();
+                    startfire();
+                }
+                firedebounce=false;
+            }, 1000);
+        }
+
+
+
+        Loop();
+    }, 50)
+  }
                   //  start the loop
 function addautomachine() {
     if (money >= automachine_equation) {
