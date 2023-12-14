@@ -1,0 +1,101 @@
+<html>
+    <body>
+        <h1>Fill out the required boxes below</h1>
+        <div id="selections">
+        <label>Grade level:</label>
+        <input id="grade" type="number" max="12" min="2" value="2">
+        <br><br>
+        <label>Subject:</label>
+        <input id="subject" type="text">
+        <br><br>
+        <label>Study material:</label>
+        <input id="material" type="text">
+        <br><br>
+        <button onclick="openUp()" style="font-size: 50px;">Submit</button>
+    </div>
+
+    <div id="openup" style="display: none;">
+        <h2>Go to bing GPT and enter the text below. Once you do that, copy only the code it gives you and click next.</h1>
+        <input type="text" id="prompt">
+        <button onclick="next()" style="font-size: 50px;">Next</button>
+    </div>
+
+    <div id="inputtext" style="display: none;">
+        <button onclick="Done()" style="font-size: 50px;">Generate Quiz</button>
+    </div>
+    </body>
+    <style>
+        body {
+    background-color: rgb(83, 83, 83);
+    background-image: url(Images/background_2.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+h1{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100;
+}
+h2{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40;
+}
+label{
+    color: white;
+    font-size: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+input{
+    font-size:xx-large;
+    height: 40px;
+    width: 200px;
+    transition: all 0.5s;
+}
+input:hover{
+    height: 50px;
+    width: 210px;
+    box-shadow: 0 8px 12px 0 rgba(255, 255, 255, 0.54)
+}
+    </style>
+    <script>
+
+
+
+// Select the text field
+
+
+        function getValue(){
+            document.getElementById("prompt").value = 'This is part of a table in js: {question:"What does DNA stand for", a1:"answer1", a2:"answer2", a3:"answer3", a4:"answer4", correct: 1}Create a multiple choice quiz for a text that I will send after I say "|||" and input the questions and answers into the followingThe question number should replace the value in the "question" section of the aray, and the multiple choice questions should be put in "a1, a2, a3" from the table. instead of "correct" being a1, just make it 1; or a2, just 2 etc. Do not provide any explination in your message, all I want in the message it the code, thats it. ' + 'This is a ' + document.getElementById("grade").value + 'th grade ' + document.getElementById("subject").value + 'class and here is the study material to make the quiz on. If there is nothing after these lines, create a 20+ question quiz based off of the grade level and subject I have given. If there is something after these lines, create a 20+ question quiz off of it. I will not be modifying the code in any way, so I need you to make sure there are more than 20 questions. Dont tell me to add more questions as needed, just put as many questions as you can based off of the information ||| ' + document.getElementById("material").value 
+            var copyText = document.getElementById("prompt");
+        copyText.select();
+copyText.setSelectionRange(0, 99999); // For mobile devices
+
+ // Copy the text inside the text field
+navigator.clipboard.writeText(copyText.value);
+navigator.clipboard.writeText(copyText.value);
+navigator.clipboard.writeText(copyText.value);
+navigator.clipboard.writeText(copyText.value);
+navigator.clipboard.writeText(copyText.value);
+
+// Alert the copied text
+alert("Copied the text, go to an AI service and paste (ctrl + v)");
+        }
+
+        function next(){
+            document.getElementById("openup").style.display = "none";
+            document.getElementById("inputtext").style.display = "block";
+        }
+
+function openUp(){
+    getValue();
+    document.getElementById("openup").style.display = "block";
+    window.open('https://www.bing.com/search?form=MW00X7&ef_id=_k_Cj0KCQiA4NWrBhD-ARIsAFCKwWt7eUdBjx8KPirUYwdkDkjdG_-oRrINTPE0EK7KkYqGmPCceUJFrLMaAgfKEALw_wcB_k_&OCID=AIDcmmf8m4fdss_SEM__k_Cj0KCQiA4NWrBhD-ARIsAFCKwWt7eUdBjx8KPirUYwdkDkjdG_-oRrINTPE0EK7KkYqGmPCceUJFrLMaAgfKEALw_wcB_k_&gad_source=1&gclid=Cj0KCQiA4NWrBhD-ARIsAFCKwWt7eUdBjx8KPirUYwdkDkjdG_-oRrINTPE0EK7KkYqGmPCceUJFrLMaAgfKEALw_wcB&q=Bing+AI&showconv=1','popup','width=600,height=600');
+}
+
+function Done(){
+    window.open("aiquiz.html", "_parent");
+}
+    </script>
+</html>
