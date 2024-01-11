@@ -74,7 +74,8 @@ function createnote() {
         document.getElementById("number").innerHTML = "Notecards: " + notecards;
         paper = paper - 0.10;
         document.getElementById("papertitle").innerHTML = "Paper: " + Math.round(paper) + " sheets";
-        
+        var piechart = document.querySelector('.piechart');
+piechart.style.backgroundImage = 'conic-gradient(pink 90deg, lightblue 0 180deg, orange 0)';
     }
 }
 
@@ -133,6 +134,14 @@ function Quest(goal){
                 } else
                 Quest(goal);
                  percentagecount(percentage);
+            } if(goal==6){
+                percentage = (nps / 50) * 100;
+                document.getElementById("assignment").innerHTML = ""
+                if(nps>=50){
+                    document.getElementById("claim").removeAttribute("disabled");
+                } else
+                Quest(goal);
+                 percentagecount(percentage);
             }
         }, 200);
 }
@@ -174,6 +183,8 @@ function percentagecountfire(percentage){
         document.getElementById("firemeter").style.backgroundColor="Red";
       }
 }
+
+
 
 function claimreward(){
     document.getElementById("claim").setAttribute('disabled', 'disabled');

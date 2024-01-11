@@ -78,3 +78,22 @@
     0% {background-color: red;}
     100% {background-color: white;}
 }
+
+.piechart { 
+    margin-top: 0px; 
+    display: block; 
+    position: absolute; 
+    width: 100px; 
+    height: 100px; 
+    border-radius: 50%; 
+    background-image: conic-gradient( 
+        pink 20deg,  
+        lightblue 0 120deg,  
+        orange 0 40deg); 
+} 
+
+.piechart { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+} 
